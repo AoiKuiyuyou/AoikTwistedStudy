@@ -1,0 +1,8 @@
+*
+!/.gitignore
+!/LICENSE.txt
+!/README.md
+!/README.src.md
+!/src/
+!/src/**/*.py
+!/src/**/*.txt

@@ -1,0 +1,407 @@
+# ----- Main function -----
+__main__.main
+
+    # ----- Create `TCP4ServerEndpoint` -----
+    twisted.internet.endpoints.TCP4ServerEndpoint.__init__
+
+        # ----- Call super method -----
+        twisted.internet.endpoints.TCP4ServerEndpoint -> twisted.internet.endpoints._TCPServerEndpoint.__init__
+
+    # ===== twisted.internet.endpoints.TCP4ServerEndpoint.__init__ =====
+
+    # ----- Call `listen` -----
+    twisted.internet.endpoints.TCP4ServerEndpoint -> twisted.internet.endpoints._TCPServerEndpoint.listen
+
+        # ----- Call `execute` -----
+        twisted.internet.defer.execute
+
+            # ----- Call `listenTCP` -----
+            twisted.internet.selectreactor.SelectReactor -> twisted.internet.posixbase.PosixReactorBase.listenTCP
+
+                # ----- Create `Port` -----
+                twisted.internet.tcp.Port.__init__
+
+                # ----- Call `startListening` -----
+                twisted.internet.tcp.Port.startListening
+
+                    # ----- Call `createInternetSocket` -----
+                    twisted.internet.tcp.Port.createInternetSocket
+
+                        # ----- Call super method -----
+                        twisted.internet.tcp.Port -> twisted.internet.base.BasePort.createInternetSocket
+
+                            # ----- Create socket -----
+                            socket._socketobject.__init__
+
+                            # ----- Set socket be non-blocking -----
+                            socket._socketobject.setblocking
+
+                        # ===== twisted.internet.base.BasePort.createInternetSocket =====
+
+                    # ----- Bind socket -----
+                    socket._socketobject.bind
+
+                    # ----- Start socket listening -----
+                    socket._socketobject.listen
+
+                    # ----- Call `doStart` -----
+                    twisted.internet.protocol.Factory.doStart
+
+                    # ----- Call `startReading` -----
+                    twisted.internet.tcp.Port -> twisted.internet.abstract.FileDescriptor.startReading
+
+                        # ----- Add read event handler -----
+                        # 2GBN5
+                        #
+                        twisted.internet.selectreactor.SelectReactor.addReader
+
+                            # ----- Add to `self._reads` list -----
+
+                        # ===== twisted.internet.selectreactor.SelectReactor.addReader =====
+
+                    # ===== twisted.internet.abstract.FileDescriptor.startReading =====
+
+                # ===== twisted.internet.tcp.Port.startListening =====
+
+            # ===== twisted.internet.posixbase.PosixReactorBase.listenTCP =====
+
+            # ----- Call `succeed` -----
+            twisted.internet.defer.succeed
+
+                # ----- Create `Deferred` -----
+                twisted.internet.defer.Deferred.__init__
+
+                # ----- Call `callback` -----
+                twisted.internet.defer.Deferred.callback
+
+                    # ----- Call `_startRunCallbacks` -----
+                    twisted.internet.defer.Deferred._startRunCallbacks
+
+                        # ----- Call `_runCallbacks` -----
+                        twisted.internet.defer.Deferred._runCallbacks
+
+                    # ===== twisted.internet.defer.Deferred._startRunCallbacks =====
+
+                # ===== twisted.internet.defer.Deferred.callback =====
+
+            # ===== twisted.internet.defer.succeed =====
+
+        # ===== twisted.internet.defer.execute =====
+
+    # ===== twisted.internet.endpoints._TCPServerEndpoint.listen =====
+
+    # ----- Call `run` -----
+    twisted.internet.selectreactor.SelectReactor -> twisted.internet.base._SignalReactorMixin.run
+
+        # ----- Call `startRunning` -----
+        twisted.internet.selectreactor.SelectReactor -> twisted.internet.base._SignalReactorMixin.startRunning
+
+            # ----- Call super method -----
+            twisted.internet.selectreactor.SelectReactor -> twisted.internet.base.ReactorBase.startRunning
+
+                # ----- Call `registerAsIOThread` -----
+                twisted.python.threadable.registerAsIOThread
+
+                # ----- Call `fireSystemEvent` -----
+                twisted.internet.selectreactor.SelectReactor -> twisted.internet.base.ReactorBase.fireSystemEvent => ( eventType='startup' )
+
+            # ===== twisted.internet.base.ReactorBase.startRunning =====
+
+        # ===== twisted.internet.base._SignalReactorMixin.startRunning =====
+
+        # ----- Call `mainLoop` -----
+        twisted.internet.selectreactor.SelectReactor -> twisted.internet.base._SignalReactorMixin.mainLoop
+
+            # ----- Loop while `self._started` is true -----
+
+                # ----- Run pending timed calls -----
+                twisted.internet.selectreactor.SelectReactor -> twisted.internet.base.ReactorBase.runUntilCurrent
+
+                    # ----- Call `_insertNewDelayedCalls` -----
+                    twisted.internet.selectreactor.SelectReactor -> twisted.internet.base.ReactorBase._insertNewDelayedCalls
+
+                # ===== Run pending timed calls =====
+
+                # ----- Determine polling timeout -----
+                # The result will be passed to `doIteration`.
+                #
+                twisted.internet.selectreactor.SelectReactor -> twisted.internet.base.ReactorBase.timeout
+
+                # ----- Call `doIteration` -----
+                twisted.internet.selectreactor.SelectReactor.doIteration
+
+                    # ----- Poll events -----
+                    select.select
+
+                    # ----- Call `callWithLogger` -----
+                    twisted.python.log.callWithLogger
+
+                        # ----- Call `callWithContext` -----
+                        twisted.python.log.callWithContext
+
+                            # ----- Call `callWithContext` -----
+                            twisted.python.context.ContextTracker.callWithContext
+
+                                # ----- Call `_doReadOrWrite` -----
+                                twisted.internet.selectreactor.SelectReactor._doReadOrWrite
+
+                                    # ----- Call `doRead` -----
+                                    # The event handler is added at 2GBN5.
+                                    #
+                                    twisted.internet.tcp.Port.doRead
+
+                                        # ----- Accept connection -----
+                                        socket._socketobject.accept
+
+                                            # ----- Create connection socket -----
+                                            socket._socketobject.__init__
+
+                                        # ===== socket._socketobject.accept =====
+
+                                        # ----- Call `buildProtocol` -----
+                                        twisted.internet.protocol.Factory.buildProtocol
+
+                                            # ----- Create `EchoProtocol` -----
+                                            __main__.EchoProtocol.__init__
+
+                                        # ===== twisted.internet.protocol.Factory.buildProtocol =====
+
+                                        # ----- Create `Server` -----
+                                        twisted.internet.tcp.Server.__init__
+
+                                            # ----- Call super method -----
+                                            twisted.internet.tcp.Server -> twisted.internet.tcp.Connection.__init__
+
+                                                # ----- Call super method -----
+                                                twisted.internet.tcp.Server -> twisted.internet.abstract.FileDescriptor.__init__
+
+                                                # ----- Set socket be non-blocking -----
+                                                socket._socketobject.setblocking
+
+                                            # ===== twisted.internet.tcp.Connection.__init__ =====
+
+                                            # ----- Call `startReading` -----
+                                            twisted.internet.tcp.Server -> twisted.internet.abstract.FileDescriptor.startReading
+
+                                                # ----- Add read event handler  -----
+                                                # 7IKQI
+                                                #
+                                                twisted.internet.selectreactor.SelectReactor.addReader
+
+                                            # ===== twisted.internet.abstract.FileDescriptor.startReading =====
+
+                                        # ===== twisted.internet.tcp.Server.__init__ =====
+
+                                        # ----- Call `makeConnection` -----
+                                        __main__.EchoProtocol -> twisted.internet.protocol.BaseProtocol.makeConnection
+
+                                            # ----- Call `connectionMade` -----
+                                            __main__.EchoProtocol -> twisted.internet.protocol.BaseProtocol.connectionMade
+
+                                        # ===== twisted.internet.protocol.BaseProtocol.makeConnection =====
+
+                                    # ===== twisted.internet.tcp.Port.doRead =====
+
+                                # ===== twisted.internet.selectreactor.SelectReactor._doReadOrWrite =====
+
+                            # ===== twisted.python.context.ContextTracker.callWithContext =====
+
+                        # ===== twisted.python.log.callWithContext =====
+
+                    # ===== twisted.python.log.callWithLogger =====
+
+                # ===== twisted.internet.selectreactor.SelectReactor.doIteration =====
+
+                # ----- Run pending timed calls -----
+                twisted.internet.selectreactor.SelectReactor -> twisted.internet.base.ReactorBase.runUntilCurrent
+
+                # ----- Determine polling timeout -----
+                twisted.internet.selectreactor.SelectReactor -> twisted.internet.base.ReactorBase.timeout
+
+                # ----- Call `doIteration` -----
+                twisted.internet.selectreactor.SelectReactor.doIteration
+
+                    # ----- Poll events -----
+                    select.select
+
+                    # ----- Call `callWithLogger` -----
+                    twisted.python.log.callWithLogger
+
+                        # ----- Call `callWithContext` -----
+                        twisted.python.log.callWithContext
+
+                            # ----- Call `callWithContext` -----
+                            twisted.python.context.ContextTracker.callWithContext
+
+                                # ----- Call `_doReadOrWrite` -----
+                                twisted.internet.selectreactor.SelectReactor._doReadOrWrite
+
+                                    # ----- Call `doRead` -----
+                                    # The event handler is added at 7IKQI.
+                                    #
+                                    twisted.internet.tcp.Server -> twisted.internet.tcp.Connection.doRead
+
+                                        # ----- Read from socket -----
+                                        # Not visible in log.
+                                        #
+                                        socket.recv
+
+                                        # ----- Call `_dataReceived` -----
+                                        twisted.internet.tcp.Server -> twisted.internet.tcp.Connection._dataReceived
+
+                                            # ----- Call `dataReceived` -----
+                                            __main__.EchoProtocol.dataReceived
+
+                                                # ----- Write response data -----
+                                                twisted.internet.tcp.Server -> twisted.internet.abstract.FileDescriptor.write
+
+                                                    # ----- Call `_maybePauseProducer` -----
+                                                    twisted.internet.tcp.Server -> twisted.internet.abstract.FileDescriptor._maybePauseProducer
+
+                                                    # ----- Call `startWriting` -----
+                                                    twisted.internet.tcp.Server -> twisted.internet.abstract.FileDescriptor.startWriting
+
+                                                        # ----- Add write event handler -----
+                                                        # 3NPV4
+                                                        #
+                                                        twisted.internet.selectreactor.SelectReactor.addWriter
+
+                                                    # ===== twisted.internet.abstract.FileDescriptor.startWriting =====
+
+                                                # ===== twisted.internet.abstract.FileDescriptor.write =====
+
+                                                # ----- Schedule to call `close_reactor` -----
+                                                # 635YF
+                                                #
+                                                twisted.internet.selectreactor.SelectReactor -> twisted.internet.base.ReactorBase.callLater
+
+                                                    # ----- Create `DelayedCall` -----
+                                                    twisted.internet.base.DelayedCall.__init__
+
+                                                # ===== twisted.internet.base.ReactorBase.callLater =====
+
+                                            # ===== __main__.EchoProtocol.dataReceived =====
+
+                                        # ===== twisted.internet.tcp.Connection._dataReceived =====
+
+                                    # ===== twisted.internet.tcp.Connection.doRead =====
+
+                                # ===== twisted.internet.selectreactor.SelectReactor._doReadOrWrite =====
+
+                            # ===== twisted.python.context.ContextTracker.callWithContext =====
+
+                        # ===== twisted.python.log.callWithContext =====
+
+                    # ===== twisted.python.log.callWithLogger =====
+
+                # ===== twisted.internet.selectreactor.SelectReactor.doIteration =====
+
+                # ----- Run pending timed calls -----
+                twisted.internet.selectreactor.SelectReactor -> twisted.internet.base.ReactorBase.runUntilCurrent
+
+                    # ----- Call `_insertNewDelayedCalls` -----
+                    twisted.internet.selectreactor.SelectReactor -> twisted.internet.base.ReactorBase._insertNewDelayedCalls
+
+                        # ----- Call `activate_delay` -----
+                        twisted.internet.base.DelayedCall.activate_delay
+
+                    # ===== twisted.internet.base.ReactorBase._insertNewDelayedCalls =====
+
+                # ===== twisted.internet.base.ReactorBase.runUntilCurrent =====
+
+                # ----- Determine polling timeout -----
+                twisted.internet.selectreactor.SelectReactor -> twisted.internet.base.ReactorBase.timeout
+
+                # ----- Call `doIteration` -----
+                twisted.internet.selectreactor.SelectReactor.doIteration
+
+                    # ----- Poll events -----
+                    select.select
+
+                    # ----- Call `callWithLogger` -----
+                    twisted.python.log.callWithLogger
+
+                        # ----- Call `callWithContext` -----
+                        twisted.python.log.callWithContext
+
+                            # ----- Call `callWithContext` -----
+                            twisted.python.context.ContextTracker.callWithContext
+
+                                # ----- Call `_doReadOrWrite` -----
+                                twisted.internet.selectreactor.SelectReactor._doReadOrWrite
+
+                                    # ----- Call `doWrite` -----
+                                    # The event handler is added at 3NPV4.
+                                    #
+                                    twisted.internet.tcp.Server -> twisted.internet.abstract.FileDescriptor.doWrite
+
+                                        # ----- Call `writeSomeData` -----
+                                        twisted.internet.tcp.Server -> twisted.internet.tcp.Connection.writeSomeData
+
+                                            # ----- Write to socket -----
+                                            # Not visible in log.
+                                            #
+                                            socket.send
+
+                                        # ===== twisted.internet.tcp.Connection.writeSomeData =====
+
+                                        # ----- Remove write event handler -----
+                                        twisted.internet.tcp.Server -> twisted.internet.abstract.FileDescriptor.stopWriting
+
+                                    # ===== twisted.internet.abstract.FileDescriptor.doWrite =====
+
+                                # ===== twisted.internet.selectreactor.SelectReactor._doReadOrWrite =====
+
+                            # ===== twisted.python.context.ContextTracker.callWithContext =====
+
+                        # ===== twisted.python.log.callWithContext =====
+
+                    # ===== twisted.python.log.callWithLogger =====
+
+                # ===== twisted.internet.selectreactor.SelectReactor.doIteration =====
+
+                # ----- Call `doIteration` -----
+                twisted.internet.selectreactor.SelectReactor.doIteration
+
+                    # ----- Poll events -----
+                    select.select
+
+                # ===== twisted.internet.selectreactor.SelectReactor.doIteration =====
+
+                # ----- Run pending timed calls -----
+                twisted.internet.selectreactor.SelectReactor -> twisted.internet.base.ReactorBase.runUntilCurrent
+
+                    # ----- Call `close_reactor` -----
+                    # This is scheduled at 635YF.
+                    #
+                    __main__.EchoProtocol.close_reactor
+
+                        # ---- Close socket connection ----
+                        socket._socketobject.shutdown
+
+                        # ---- Stop reactor ----
+                        twisted.internet.selectreactor.SelectReactor -> twisted.internet.base.ReactorBase.stop
+
+                    # ===== __main__.EchoProtocol.close_reactor =====
+
+                # ----- Call `fireSystemEvent` -----
+                twisted.internet.selectreactor.SelectReactor -> twisted.internet.base.ReactorBase.fireSystemEvent => ( eventType='shutdown' )
+
+                # ----- Determine polling timeout -----
+                twisted.internet.selectreactor.SelectReactor -> twisted.internet.base.ReactorBase.timeout
+
+                # ----- Call `doIteration` -----
+                twisted.internet.selectreactor.SelectReactor.doIteration
+
+                    # ----- Poll events -----
+                    select.select
+
+                # ===== twisted.internet.selectreactor.SelectReactor.doIteration =====
+
+            # ===== Loop while `self._started` is true =====
+
+        # ===== twisted.internet.base._SignalReactorMixin.mainLoop =====
+
+    # ===== twisted.internet.base._SignalReactorMixin.run =====
+
+# ===== __main__.main =====
